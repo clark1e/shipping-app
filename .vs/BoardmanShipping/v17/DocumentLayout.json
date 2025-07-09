@@ -1,0 +1,196 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\PrintService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BoardmanShipping\\PrintService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\App.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BoardmanShipping\\App.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\Converters.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BoardmanShipping\\Converters.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\RelayCommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BoardmanShipping\\RelayCommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\MainViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BoardmanShipping\\MainViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\SalesOrder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BoardmanShipping\\SalesOrder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BoardmanShipping\\BoardmanShipping.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\OdbcDataService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BoardmanShipping\\OdbcDataService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\MainWindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BoardmanShipping\\MainWindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\App.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BoardmanShipping\\App.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BoardmanShipping\\AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PrintService.cs",
+              "DocumentMoniker": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\PrintService.cs",
+              "RelativeDocumentMoniker": "BoardmanShipping\\PrintService.cs",
+              "ToolTip": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\PrintService.cs",
+              "RelativeToolTip": "BoardmanShipping\\PrintService.cs",
+              "ViewState": "AgIAACgBAAAAAAAAAAAAAD8BAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T15:03:04.19Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\App.xaml.cs",
+              "RelativeDocumentMoniker": "BoardmanShipping\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\App.xaml.cs",
+              "RelativeToolTip": "BoardmanShipping\\App.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T12:53:27.055Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Converters.cs",
+              "DocumentMoniker": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\Converters.cs",
+              "RelativeDocumentMoniker": "BoardmanShipping\\Converters.cs",
+              "ToolTip": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\Converters.cs",
+              "RelativeToolTip": "BoardmanShipping\\Converters.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAuwFIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T12:28:14.464Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RelayCommand.cs",
+              "DocumentMoniker": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\RelayCommand.cs",
+              "RelativeDocumentMoniker": "BoardmanShipping\\RelayCommand.cs",
+              "ToolTip": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\RelayCommand.cs",
+              "RelativeToolTip": "BoardmanShipping\\RelayCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T12:45:34.65Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "BoardmanShipping\\MainViewModel.cs",
+              "ToolTip": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\MainViewModel.cs",
+              "RelativeToolTip": "BoardmanShipping\\MainViewModel.cs",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAuwJ8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T12:35:34.009Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SalesOrder.cs",
+              "DocumentMoniker": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\SalesOrder.cs",
+              "RelativeDocumentMoniker": "BoardmanShipping\\SalesOrder.cs",
+              "ToolTip": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\SalesOrder.cs",
+              "RelativeToolTip": "BoardmanShipping\\SalesOrder.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T12:35:09.169Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BoardmanShipping.csproj",
+              "DocumentMoniker": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping.csproj",
+              "RelativeDocumentMoniker": "BoardmanShipping\\BoardmanShipping.csproj",
+              "ToolTip": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping.csproj",
+              "RelativeToolTip": "BoardmanShipping\\BoardmanShipping.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-07-04T12:11:27.559Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "OdbcDataService.cs",
+              "DocumentMoniker": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\OdbcDataService.cs",
+              "RelativeDocumentMoniker": "BoardmanShipping\\OdbcDataService.cs",
+              "ToolTip": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\OdbcDataService.cs",
+              "RelativeToolTip": "BoardmanShipping\\OdbcDataService.cs",
+              "ViewState": "AgIAAGsAAAAAAAAAAAAuwHEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T14:10:14.328Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "BoardmanShipping\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\MainWindow.xaml.cs",
+              "RelativeToolTip": "BoardmanShipping\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAUwBgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T14:29:09.758Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\App.xaml",
+              "RelativeDocumentMoniker": "BoardmanShipping\\App.xaml",
+              "ToolTip": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\App.xaml",
+              "RelativeToolTip": "BoardmanShipping\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-07-04T12:19:22.511Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "BoardmanShipping\\AssemblyInfo.cs",
+              "ToolTip": "C:\\Users\\Mark.MARK\\source\\repos\\BoardmanShipping\\BoardmanShipping\\BoardmanShipping\\AssemblyInfo.cs",
+              "RelativeToolTip": "BoardmanShipping\\AssemblyInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T12:36:11.335Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
