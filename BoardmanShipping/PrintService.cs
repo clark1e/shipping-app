@@ -1,10 +1,10 @@
-﻿using System;
+﻿using BoardmanShipping.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Printing;
 using System.Runtime.InteropServices;   // for COMException
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Controls;          // for PrintDialog
 using System.Windows.Documents;
 using System.Windows.Media;
 
@@ -47,12 +47,9 @@ namespace BoardmanShipping.Services
             // --- Watermark via Background brush if requested ---
             if (watermark != WatermarkType.None)
             {
-                // text & semi-transparent brush
                 string wmText = watermark == WatermarkType.Draft ? "DRAFT" : "FINAL";
-                var wmBrush = new SolidColorBrush(Color.FromArgb(60, 128, 128, 128));
-                wmBrush.Freeze();
+                var wmBrush = new SolidColorBrush(Color.FromArgb(60, 128, 128, 128)); wmBrush.Freeze();
 
-                // draw rotated watermark into a Visual
                 var vis = new DrawingVisual();
                 using (var ctx = vis.RenderOpen())
                 {
@@ -65,7 +62,6 @@ namespace BoardmanShipping.Services
                         wmBrush,
                         1.0);
 
-                    // position & rotate
                     ctx.PushTransform(new TranslateTransform(100, 300));
                     ctx.PushTransform(new RotateTransform(-45));
                     ctx.DrawText(ft, new Point(0, 0));
@@ -73,7 +69,6 @@ namespace BoardmanShipping.Services
                     ctx.Pop();
                 }
 
-                // use VisualBrush as document background
                 var vb = new VisualBrush(vis)
                 {
                     Stretch = Stretch.None,
@@ -110,7 +105,7 @@ namespace BoardmanShipping.Services
                 .GroupBy(o => o.Acctname)
                 .OrderBy(g => g.Key, StringComparer.OrdinalIgnoreCase))
             {
-                // Account header with single 8px gap
+                // Account header
                 doc.Blocks.Add(new Paragraph(new Run(group.Key.ToUpperInvariant() + " –"))
                 {
                     Background = headerBrush,
@@ -119,20 +114,20 @@ namespace BoardmanShipping.Services
                     Margin = new Thickness(0, 0, 0, 8)
                 });
 
-                // Build table columns
+                // Table setup
                 var table = new Table { CellSpacing = 0 };
-                foreach (var w in new[] { 70.0, 110.0, 200.0, 50.0, 60.0, 50.0, 50.0, 100.0, 150.0 })
-                    table.Columns.Add(new TableColumn { Width = new GridLength(w) });
+                foreach (var width in new[] { 70.0, 110.0, 200.0, 50.0, 60.0, 50.0, 50.0, 100.0, 150.0 })
+                    table.Columns.Add(new TableColumn { Width = new GridLength(width) });
 
                 // Header row
                 var hdrGroup = new TableRowGroup();
                 var hdrRow = new TableRow();
-                foreach (var h in new[] { "SO", "PartNo", "Description", "Qty", "Weight", "Pallet", "Boxes", "Status", "Analysis" })
-                    hdrRow.Cells.Add(CreateCell(h, center: true, isHeader: true));
+                foreach (var header in new[] { "SO", "PartNo", "Description", "Qty", "Weight", "Pallet", "Boxes", "Status", "Analysis" })
+                    hdrRow.Cells.Add(CreateCell(header, center: true, isHeader: true));
                 hdrGroup.Rows.Add(hdrRow);
                 table.RowGroups.Add(hdrGroup);
 
-                // Data rows (ascending SO, alternating shading)
+                // Body rows
                 var bodyGroup = new TableRowGroup();
                 int? lastSo = null;
                 bool usePink = false;
@@ -174,32 +169,22 @@ namespace BoardmanShipping.Services
                     {
                         statusText = "Completed"; statusBg = completedBrush;
                     }
-                    row.Cells.Add(CreateCell(statusText,
-                                             center: true,
-                                             background: statusBg,
-                                             bold: !string.IsNullOrEmpty(statusText)));
+                    row.Cells.Add(CreateCell(statusText, center: true, background: statusBg, bold: !string.IsNullOrEmpty(statusText)));
 
-                    // Analysis only if non-empty and not DPD/Pallet
-                    var a = (so.Analysis1 ?? "").Trim();
-                    bool showA = !string.IsNullOrEmpty(a)
-                              && !a.StartsWith("DPD", StringComparison.OrdinalIgnoreCase)
-                              && !a.StartsWith("Pallet", StringComparison.OrdinalIgnoreCase);
-                    row.Cells.Add(CreateCell(showA ? a : "", background: showA ? analysisBrush : null));
+                    // Analysis
+                    var analysis = (so.Analysis1 ?? "").Trim();
+                    bool showAnalysis = !string.IsNullOrEmpty(analysis)
+                                      && !analysis.StartsWith("DPD", StringComparison.OrdinalIgnoreCase)
+                                      && !analysis.StartsWith("Pallet", StringComparison.OrdinalIgnoreCase);
+                    row.Cells.Add(CreateCell(showAnalysis ? analysis : "", background: showAnalysis ? analysisBrush : null));
 
                     bodyGroup.Rows.Add(row);
                 }
                 table.RowGroups.Add(bodyGroup);
 
-                // Footer totals
-                int sumQty = group.Sum(x => x.Qty);
-                double sumWt = group.Sum(x => x.ItemWeight);
-                int sumPal = group.Sum(x => x.Pallet);
-                int sumBox = group.Sum(x => x.Box);
-                var totalBg = sumPal > 0 ? purpleBrush : greenBrush;
-
+                // Footer group
                 var footGroup = new TableRowGroup();
                 var footRow = new TableRow();
-
                 footRow.Cells.Add(new TableCell(new Paragraph(new Run("Total"))
                 {
                     FontSize = 12,
@@ -211,17 +196,19 @@ namespace BoardmanShipping.Services
                     BorderBrush = Brushes.Gray,
                     BorderThickness = new Thickness(0, 1, 0, 0)
                 });
+                int sumQty = group.Sum(x => x.Qty);
+                double sumWt = group.Sum(x => x.ItemWeight);
+                int sumPal = group.Sum(x => x.Pallet);
+                int sumBox = group.Sum(x => x.Box);
+                var totalBg = sumPal > 0 ? purpleBrush : greenBrush;
 
                 footRow.Cells.Add(CreateFooterCell(sumQty.ToString()));
                 footRow.Cells.Add(CreateFooterCell(sumWt.ToString("0")));
                 footRow.Cells.Add(CreateFooterCell(sumPal.ToString(), background: totalBg));
                 footRow.Cells.Add(CreateFooterCell(sumBox.ToString(), background: totalBg));
-                footRow.Cells.Add(CreateFooterCell(""));
-                footRow.Cells.Add(CreateFooterCell(""));
                 footGroup.Rows.Add(footRow);
                 table.RowGroups.Add(footGroup);
 
-                // Add table to document
                 doc.Blocks.Add(table);
             }
 
@@ -233,61 +220,38 @@ namespace BoardmanShipping.Services
                 FontWeight = FontWeights.Bold,
                 TextAlignment = TextAlignment.Left
             };
-            summary.Inlines.Add(new Run($"Orders: {uniqueOrders.Count}    "));
-            summary.Inlines.Add(new Run($"Total Qty: {overallQty}    "));
-            summary.Inlines.Add(new Run($"Total Pallets: {overallPal}    "));
-            summary.Inlines.Add(new Run($"Total Boxes: {overallBox}"));
+            summary.Inlines.Add(new Run($"Orders: {uniqueOrders.Count}    ")); summary.Inlines.Add(new Run($"Total Qty: {overallQty}    ")); summary.Inlines.Add(new Run($"Total Pallets: {overallPal}    ")); summary.Inlines.Add(new Run($"Total Boxes: {overallBox}"));
             doc.Blocks.Add(summary);
 
-            // Print with file-lock handling
+            // Print
             var pd = new PrintDialog();
             if (pd.ShowDialog() == true)
             {
                 doc.PageHeight = pd.PrintableAreaHeight;
                 doc.PageWidth = pd.PrintableAreaWidth;
                 doc.ColumnWidth = pd.PrintableAreaWidth;
-
                 try
                 {
-                    pd.PrintDocument(
-                        ((IDocumentPaginatorSource)doc).DocumentPaginator,
-                        $"Daily Shipping Schedule {date:dd MMM yyyy}");
+                    pd.PrintDocument(((IDocumentPaginatorSource)doc).DocumentPaginator, $"Daily Shipping Schedule {date:dd MMM yyyy}");
                 }
                 catch (COMException comEx) when ((uint)comEx.ErrorCode == 0x80070020u)
                 {
-                    MessageBox.Show(
-                        "The PDF file is locked or in use. Please close it and try again.",
-                        "File Locked",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Warning);
+                    MessageBox.Show("The PDF file is locked or in use. Please close it and try again.", "File Locked", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(
-                        ex.ToString(),
-                        "Print Error",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Error);
+                    MessageBox.Show(ex.ToString(), "Print Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
 
-        private static TableCell CreateCell(
-            string text,
-            bool center = false,
-            bool isHeader = false,
-            bool bold = false,
-            Brush? background = null)
+        private static TableCell CreateCell(string text, bool center = false, bool isHeader = false, bool bold = false, Brush? background = null)
         {
             var para = new Paragraph(new Run(text))
             {
                 TextAlignment = center ? TextAlignment.Center : TextAlignment.Left,
                 Padding = new Thickness(2),
-                FontWeight = bold
-                                  ? FontWeights.Bold
-                                  : (isHeader
-                                      ? FontWeights.SemiBold
-                                      : FontWeights.Normal)
+                FontWeight = bold ? FontWeights.Bold : (isHeader ? FontWeights.SemiBold : FontWeights.Normal)
             };
             return new TableCell(para)
             {
@@ -297,9 +261,7 @@ namespace BoardmanShipping.Services
             };
         }
 
-        private static TableCell CreateFooterCell(
-            string text,
-            Brush? background = null)
+        private static TableCell CreateFooterCell(string text, Brush? background = null)
         {
             var para = new Paragraph(new Run(text))
             {

@@ -1,5 +1,7 @@
 ﻿using BoardmanShipping.Services;
+using BoardmanShipping.Models;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -16,6 +18,22 @@ namespace BoardmanShipping
         private ICollectionView _ordersView;
         private string _searchText = string.Empty;
 
+        // Watermark options
+        public IEnumerable<WatermarkType> PrintStatuses { get; } =
+            Enum.GetValues(typeof(WatermarkType)).Cast<WatermarkType>();
+
+        private WatermarkType _selectedWatermark = WatermarkType.None;
+        public WatermarkType SelectedWatermark
+        {
+            get => _selectedWatermark;
+            set
+            {
+                if (_selectedWatermark == value) return;
+                _selectedWatermark = value;
+                OnPropertyChanged(nameof(SelectedWatermark));
+            }
+        }
+
         public MainViewModel()
         {
             // Date navigation
@@ -25,11 +43,11 @@ namespace BoardmanShipping
             // Search
             SearchCommand = new RelayCommand(_ => DoSearch());
 
-            // Sidebar/menu stubs
+            // Sidebar/menu commands
             ShowDailyDiaryCommand = new RelayCommand(_ => { /* TODO */ });
             ShowWeeklyDiaryCommand = new RelayCommand(_ => { /* TODO */ });
             ShowMonthlyDiaryCommand = new RelayCommand(_ => { /* TODO */ });
-            ImportOrdersCommand = new RelayCommand(_ => { /* TODO */ });
+            ImportOrdersCommand = new RelayCommand(_ => ShowImportWindow());
             SalesOrderDataCommand = new RelayCommand(_ => { /* TODO */ });
             ShowStatsCommand = new RelayCommand(_ => { /* TODO */ });
             AmendDatesCommand = new RelayCommand(_ => { /* TODO */ });
@@ -38,18 +56,37 @@ namespace BoardmanShipping
             ShowMiscCommand = new RelayCommand(_ => { /* TODO */ });
             TrackingInfoCommand = new RelayCommand(_ => { /* TODO */ });
 
-            // **Print** uses our new helper below
+            // Print daily diary
             PrintDailyDiaryCommand = new RelayCommand(_ => PrintDailyDiary());
 
-            // Initialize view
+            // Initialize
             _ordersView = CollectionViewSource.GetDefaultView(_orders);
             SelectedDate = DateTime.Today;
+            SelectedWatermark = WatermarkType.None;
         }
 
         // Public properties & commands
         public ICollectionView OrdersView => _ordersView;
-        public DateTime SelectedDate { get => _selectedDate; set { _selectedDate = value; OnPropertyChanged(nameof(SelectedDate)); LoadOrders(); } }
-        public string SearchText { get => _searchText; set { _searchText = value; OnPropertyChanged(nameof(SearchText)); } }
+        public DateTime SelectedDate
+        {
+            get => _selectedDate;
+            set
+            {
+                _selectedDate = value;
+                OnPropertyChanged(nameof(SelectedDate));
+                LoadOrders();
+            }
+        }
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+            }
+        }
+
         public int TotalQty { get; private set; }
         public double TotalWeight { get; private set; }
         public int TotalPallet { get; private set; }
@@ -74,21 +111,16 @@ namespace BoardmanShipping
         // LoadOrders: fetch, hook, group, filter, totals
         private void LoadOrders()
         {
-            // 1) Fetch from Access
             _orders = OdbcDataService.GetOrders(SelectedDate);
-
-            // 2) Listen for Completed toggles
             foreach (var so in _orders)
                 so.PropertyChanged += SalesOrder_PropertyChanged;
 
-            // 3) Build grouped view
             var cvs = new CollectionViewSource { Source = _orders };
             cvs.GroupDescriptions.Add(new PropertyGroupDescription(nameof(SalesOrder.Acctname)));
             _ordersView = cvs.View;
             _ordersView.Filter = OrderFilter;
             OnPropertyChanged(nameof(OrdersView));
 
-            // 4) Recalc page totals
             TotalQty = _orders.Sum(o => o.Qty);
             TotalWeight = _orders.Sum(o => o.ItemWeight);
             TotalPallet = _orders.Sum(o => o.Pallet);
@@ -105,27 +137,22 @@ namespace BoardmanShipping
             var key = SearchText?.Trim();
             if (string.IsNullOrEmpty(key))
             {
-                LoadOrders();
-                return;
+                LoadOrders(); return;
             }
 
             var dt = OdbcDataService.FindOrderDate(key);
             if (dt.HasValue)
                 SelectedDate = dt.Value;
             else
-                MessageBox.Show($"No order found matching “{SearchText}”", "Search", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"No order found matching '{SearchText}'", "Search", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        // When Completed toggled, persist back to DB
+        // Handle Completed toggles
         private void SalesOrder_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(SalesOrder.Completed)
-                && sender is SalesOrder so)
+            if (e.PropertyName == nameof(SalesOrder.Completed) && sender is SalesOrder so)
             {
-                try
-                {
-                    OdbcDataService.UpdateCompleted(so);
-                }
+                try { OdbcDataService.UpdateCompleted(so); }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Failed to update Completed: {ex.Message}", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -138,17 +165,23 @@ namespace BoardmanShipping
         {
             if (string.IsNullOrEmpty(SearchText)) return true;
             if (obj is SalesOrder so)
-            {
                 return so.Sonum.ToString().Contains(SearchText, StringComparison.OrdinalIgnoreCase)
                     || so.Custorderno.Contains(SearchText, StringComparison.OrdinalIgnoreCase);
-            }
             return false;
         }
 
-        // *** NEW: always print the full _orders list ***
+        // Print daily diary with watermark
         private void PrintDailyDiary()
         {
-            PrintService.PrintDailyDiary(_orders.ToList(), SelectedDate);
+            PrintService.PrintDailyDiary(_orders.ToList(), SelectedDate, SelectedWatermark);
+        }
+
+        // Show Import dialog
+        private void ShowImportWindow()
+        {
+            var importWindow = new ImportSalesOrdersWindow();
+            importWindow.Owner = Application.Current.MainWindow;
+            importWindow.ShowDialog();
         }
 
         // INotifyPropertyChanged

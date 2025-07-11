@@ -7,365 +7,282 @@
         Height="700" Width="1200"
         Background="White">
 
-  <!-- 1) Resources -->
-  <Window.Resources>
-    <local:ContainsCompleteConverter x:Key="ContainsCompleteConverter"/>
-    <local:GroupSummaryConverter   x:Key="GroupSummaryConverter"  />
-    <local:TotalCellBrushConverter x:Key="TotalCellBrushConverter"/>
-    <Style x:Key="NavButtonStyle" TargetType="Button">
-      <Setter Property="Margin"            Value="10,5"/>
-      <Setter Property="Padding"           Value="10"/>
-      <Setter Property="HorizontalAlignment" Value="Stretch"/>
-      <Setter Property="Background"        Value="#A2D18E"/>
-      <Setter Property="Foreground"        Value="Black"/>
-      <Setter Property="FontWeight"        Value="SemiBold"/>
-      <Setter Property="BorderThickness"   Value="0"/>
-      <Setter Property="Cursor"            Value="Hand"/>
-    </Style>
-  </Window.Resources>
+    <!-- 1) Resources -->
+    <Window.Resources>
+        <local:ContainsCompleteConverter x:Key="ContainsCompleteConverter"/>
+        <local:GroupSummaryConverter   x:Key="GroupSummaryConverter"  />
+        <local:TotalCellBrushConverter x:Key="TotalCellBrushConverter"/>
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Margin"            Value="10,5"/>
+            <Setter Property="Padding"           Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Background"        Value="#A2D18E"/>
+            <Setter Property="Foreground"        Value="Black"/>
+            <Setter Property="FontWeight"        Value="SemiBold"/>
+            <Setter Property="BorderThickness"   Value="0"/>
+            <Setter Property="Cursor"            Value="Hand"/>
+        </Style>
+    </Window.Resources>
 
-  <!-- 2) ViewModel -->
-  <Window.DataContext>
-    <local:MainViewModel/>
-  </Window.DataContext>
+    <!-- 2) ViewModel -->
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
 
-  <!-- 3) Root layout -->
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="180"/>
-      <ColumnDefinition Width="*"/>
-    </Grid.ColumnDefinitions>
-
-    <!-- Sidebar -->
-    <StackPanel Grid.Column="0" Background="#2C7E2C">
-      <Image Source="New Boardman-Transformers-Logo (002).png"
-             Height="80"
-             Margin="10"
-             Stretch="Uniform"/>
-
-      <Button Style="{StaticResource NavButtonStyle}"
-              Content="Daily Diary"
-              Command="{Binding ShowDailyDiaryCommand}"/>
-      <Button Style="{StaticResource NavButtonStyle}"
-              Content="Weekly Diary"
-              Command="{Binding ShowWeeklyDiaryCommand}"/>
-      <Button Style="{StaticResource NavButtonStyle}"
-              Content="Monthly Diary"
-              Command="{Binding ShowMonthlyDiaryCommand}"/>
-      <Button Style="{StaticResource NavButtonStyle}"
-              Content="Import Sales Orders"
-              Command="{Binding ImportOrdersCommand}"/>
-      <Button Style="{StaticResource NavButtonStyle}"
-              Content="Sales Order Data"
-              Command="{Binding SalesOrderDataCommand}"/>
-      <Button Style="{StaticResource NavButtonStyle}"
-              Content="Stats"
-              Command="{Binding ShowStatsCommand}"/>
-      <Button Style="{StaticResource NavButtonStyle}"
-              Content="Amend Delivery Dates"
-              Command="{Binding AmendDatesCommand}"/>
-      <Button Style="{StaticResource NavButtonStyle}"
-              Content="Barcode Label Printing"
-              Command="{Binding PrintBarcodeCommand}"/>
-      <Button Style="{StaticResource NavButtonStyle}"
-              Content="Box Label Printing"
-              Command="{Binding PrintBoxLabelsCommand}"/>
-      <Button Style="{StaticResource NavButtonStyle}"
-              Content="Misc"
-              Command="{Binding ShowMiscCommand}"/>
-      <Button Style="{StaticResource NavButtonStyle}"
-              Content="Tracking Info"
-              Command="{Binding TrackingInfoCommand}"/>
-
-      <!-- Spacer -->
-      <StackPanel VerticalAlignment="Stretch" Height="Auto"/>
-
-      <TextBlock Text="Search"
-                 Foreground="White"
-                 Margin="10,20,10,5"/>
-      <TextBox x:Name="SearchTextBox"
-               Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-               Margin="10,0,10,10"
-               Padding="5"
-               KeyDown="SearchTextBox_KeyDown"/>
-    </StackPanel>
-
-    <!-- Main content -->
-   <Grid Grid.Column="1" Margin="10,0,10,10">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="*"/>
-      <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
-
-    <!-- Date navigator + Print button -->
-    <!-- Date navigator with native DatePicker -->
-    <!-- Date navigator with native DatePicker -->
-    <StackPanel Grid.Row="0"
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                Margin="0,10">
-
-      <!-- Previous day -->
-      <Button Content="←"
-              Width="30"
-              Command="{Binding PrevDayCommand}"
-              Margin="0,0,5,0"/>
-
-      <!-- DatePicker bound two‐way to SelectedDate -->
-      <DatePicker SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
-                  DisplayDate="{Binding SelectedDate}"
-                  Width="140"
-                  Margin="0,0,5,0"/>
-
-      <!-- Next day -->
-      <Button Content="→"
-              Width="30"
-              Command="{Binding NextDayCommand}"
-              Margin="0,0,10,0"/>
-
-      <!-- Loaded count -->
-      <TextBlock Text="Loaded:"
-                 VerticalAlignment="Center"
-                 Margin="5,0,0,0"/>
-      <TextBlock Text="{Binding OrdersView.Count}"
-                 FontWeight="Bold"
-                 VerticalAlignment="Center"
-                 Margin="2,0,0,0"/>
-
-      <!-- Print button -->
-      <Button Content="Print Daily Diary"
-              Command="{Binding PrintDailyDiaryCommand}"
-              Margin="20,0,0,0"/>
-
-    </StackPanel>
-
-
-
-      <!-- DataGrid with grouping -->
-      <DataGrid Grid.Row="1"
-                ItemsSource="{Binding OrdersView}"
-                AutoGenerateColumns="False"
-                CanUserAddRows="False"
-                GridLinesVisibility="None"
-                AlternatingRowBackground="#F9F9F9"
-                RowBackground="White"
-                FontFamily="Segoe UI">
-
-        <!-- GroupStyle: header & footer aligned -->
-        <DataGrid.GroupStyle>
-          <GroupStyle>
-            <GroupStyle.ContainerStyle>
-              <Style TargetType="GroupItem">
-                <Setter Property="Template">
-                  <Setter.Value>
-                    <ControlTemplate TargetType="GroupItem">
-                      <StackPanel>
-                        <!-- Group header (Account name) -->
-                        <Border Background="#ffcc66"
-                                Padding="5">
-                          <TextBlock Text="{Binding Name}"
-                                     FontSize="16"
-                                     FontWeight="Bold"/>
-                        </Border>
-
-                        <!-- Rows -->
-                        <ItemsPresenter/>
-
-                        <!-- Group footer totals -->
-                        <Border Background="Transparent"
-                                Padding="5">
-                          <Grid>
-                            <Grid.ColumnDefinitions>
-                              <ColumnDefinition Width="120"/> <!-- Account col -->
-                              <ColumnDefinition Width="70"/>  <!-- SO -->
-                              <ColumnDefinition Width="110"/> <!-- CustOrderNo -->
-                              <ColumnDefinition Width="120"/> <!-- PartNo -->
-                              <ColumnDefinition Width="200"/> <!-- Description -->
-                              <ColumnDefinition Width="50"/>  <!-- Qty -->
-                              <ColumnDefinition Width="60"/>  <!-- Weight -->
-                              <ColumnDefinition Width="50"/>  <!-- Pallets -->
-                              <ColumnDefinition Width="50"/>  <!-- Boxes -->
-                              <ColumnDefinition Width="70"/>  <!-- Completed -->
-                              <ColumnDefinition Width="150"/> <!-- Status -->
-                            </Grid.ColumnDefinitions>
-
-                            <!-- "Total" label spans first 5 columns -->
-                            <TextBlock Grid.Column="0"
-                                       Grid.ColumnSpan="5"
-                                       Text="Total"
-                                       FontWeight="Bold"
-                                       VerticalAlignment="Center"/>
-
-                            <!-- Footer quantities -->
-                            <Border Grid.Column="5"
-                                    Background="{Binding Items, Converter={StaticResource TotalCellBrushConverter}}"
-                                    Padding="2" Margin="2">
-                              <TextBlock Text="{Binding Items,
-                                                Converter={StaticResource GroupSummaryConverter},
-                                                ConverterParameter=Qty}"
-                                         FontWeight="Bold"
-                                         TextAlignment="Center"/>
-                            </Border>
-                            <Border Grid.Column="6"
-                                    Background="{Binding Items, Converter={StaticResource TotalCellBrushConverter}}"
-                                    Padding="2" Margin="2">
-                              <TextBlock Text="{Binding Items,
-                                                Converter={StaticResource GroupSummaryConverter},
-                                                ConverterParameter=ItemWeight}"
-                                         FontWeight="Bold"
-                                         TextAlignment="Center"/>
-                            </Border>
-                            <Border Grid.Column="7"
-                                    Background="{Binding Items, Converter={StaticResource TotalCellBrushConverter}}"
-                                    Padding="2" Margin="2">
-                              <TextBlock Text="{Binding Items,
-                                                Converter={StaticResource GroupSummaryConverter},
-                                                ConverterParameter=Pallet}"
-                                         FontWeight="Bold"
-                                         TextAlignment="Center"/>
-                            </Border>
-                            <Border Grid.Column="8"
-                                    Background="{Binding Items, Converter={StaticResource TotalCellBrushConverter}}"
-                                    Padding="2" Margin="2">
-                              <TextBlock Text="{Binding Items,
-                                                Converter={StaticResource GroupSummaryConverter},
-                                                ConverterParameter=Box}"
-                                         FontWeight="Bold"
-                                         TextAlignment="Center"/>
-                            </Border>
-
-                          </Grid>
-                        </Border>
-                      </StackPanel>
-                    </ControlTemplate>
-                  </Setter.Value>
-                </Setter>
-              </Style>
-            </GroupStyle.ContainerStyle>
-          </GroupStyle>
-        </DataGrid.GroupStyle>
-
-        <!-- Columns -->
-        <DataGrid.Columns>
-          <DataGridTextColumn Header="Account"
-                              Binding="{Binding Acctname}"
-                              Width="120"/>
-          <DataGridTextColumn Header="SO"
-                              Binding="{Binding Sonum}"
-                              Width="70"/>
-          <DataGridTextColumn Header="Cust Order No"
-                              Binding="{Binding Custorderno}"
-                              Width="110"/>
-          <DataGridTextColumn Header="PartNo"
-                              Binding="{Binding Partno}"
-                              Width="120"/>
-          <DataGridTextColumn Header="Description"
-                              Binding="{Binding Itemdesc}"
-                              Width="200"/>
-          <DataGridTextColumn Header="Qty"
-                              Binding="{Binding Qty}"
-                              Width="50">
-            <DataGridTextColumn.ElementStyle>
-              <Style TargetType="TextBlock">
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="TextAlignment"       Value="Center"/>
-              </Style>
-            </DataGridTextColumn.ElementStyle>
-          </DataGridTextColumn>
-          <DataGridTextColumn Header="Weight"
-                              Binding="{Binding ItemWeight}"
-                              Width="60">
-            <DataGridTextColumn.ElementStyle>
-              <Style TargetType="TextBlock">
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="TextAlignment"       Value="Center"/>
-              </Style>
-            </DataGridTextColumn.ElementStyle>
-          </DataGridTextColumn>
-          <DataGridTextColumn Header="Pallets"
-                              Binding="{Binding Pallet}"
-                              Width="50">
-            <DataGridTextColumn.ElementStyle>
-              <Style TargetType="TextBlock">
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="TextAlignment"       Value="Center"/>
-              </Style>
-            </DataGridTextColumn.ElementStyle>
-          </DataGridTextColumn>
-          <DataGridTextColumn Header="Boxes"
-                              Binding="{Binding Box}"
-                              Width="50">
-            <DataGridTextColumn.ElementStyle>
-              <Style TargetType="TextBlock">
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="TextAlignment"       Value="Center"/>
-              </Style>
-            </DataGridTextColumn.ElementStyle>
-          </DataGridTextColumn>
-          <DataGridCheckBoxColumn Header="Completed"
-                                  Binding="{Binding Completed,Mode=TwoWay}"
-                                  Width="70"/>
-          <DataGridTextColumn Header="Status"
-                              Binding="{Binding TrackStatus}"
-                              Width="150"/>
-        </DataGrid.Columns>
-
-        <!-- Cell styling triggers -->
-        <DataGrid.Resources>
-          <Style TargetType="DataGridCell">
-            <Style.Triggers>
-              <DataTrigger Binding="{Binding Completed}" Value="True">
-                <Setter Property="Background" Value="#D5E8D4"/>
-              </DataTrigger>
-              <DataTrigger Binding="{Binding TrackStatus, Converter={StaticResource ContainsCompleteConverter}}"
-                           Value="True">
-                <Setter Property="Background" Value="#D5E8D4"/>
-              </DataTrigger>
-            </Style.Triggers>
-          </Style>
-        </DataGrid.Resources>
-      </DataGrid>
-
-      <!-- Bottom page totals (aligned) -->
-      <Grid Grid.Row="2" Margin="0,5,0,0">
+    <!-- 3) Root layout -->
+    <Grid>
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="120"/>
-          <ColumnDefinition Width="70"/>
-          <ColumnDefinition Width="110"/>
-          <ColumnDefinition Width="120"/>
-          <ColumnDefinition Width="200"/>
-          <ColumnDefinition Width="50"/>
-          <ColumnDefinition Width="60"/>
-          <ColumnDefinition Width="50"/>
-          <ColumnDefinition Width="50"/>
-          <ColumnDefinition Width="70"/>
-          <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Label spans first 5 columns -->
-        <TextBlock Grid.Column="0"
-                   Grid.ColumnSpan="5"
-                   Text="Total Unit"
-                   FontSize="16"
-                   FontWeight="Bold"
-                   VerticalAlignment="Center"/>
+        <!-- Sidebar -->
+        <StackPanel Grid.Column="0" Background="#2C7E2C">
+            <Image Source="New Boardman-Transformers-Logo (002).png"
+                   Height="80" Margin="10" Stretch="Uniform"/>
 
-        <!-- Numeric totals under matching columns -->
-        <Border Grid.Column="5" Background="#FFFF66" Padding="2" Margin="2">
-          <TextBlock Text="{Binding TotalQty}" FontWeight="Bold" TextAlignment="Center"/>
-        </Border>
-        <Border Grid.Column="6" Background="#FFFF66" Padding="2" Margin="2">
-          <TextBlock Text="{Binding TotalWeight, StringFormat={}{0:0}}" FontWeight="Bold" TextAlignment="Center"/>
-        </Border>
-        <Border Grid.Column="7" Background="#FFFF66" Padding="2" Margin="2">
-          <TextBlock Text="{Binding TotalPallet}" FontWeight="Bold" TextAlignment="Center"/>
-        </Border>
-        <Border Grid.Column="8" Background="#FFFF66" Padding="2" Margin="2">
-          <TextBlock Text="{Binding TotalBox}" FontWeight="Bold" TextAlignment="Center"/>
-        </Border>
-      </Grid>
+            <Button Style="{StaticResource NavButtonStyle}" Content="Daily Diary"
+                    Command="{Binding ShowDailyDiaryCommand}"/>
+            <Button Style="{StaticResource NavButtonStyle}" Content="Weekly Diary"
+                    Command="{Binding ShowWeeklyDiaryCommand}"/>
+            <Button Style="{StaticResource NavButtonStyle}" Content="Monthly Diary"
+                    Command="{Binding ShowMonthlyDiaryCommand}"/>
+            <Button Style="{StaticResource NavButtonStyle}" Content="Import Sales Orders"
+                    Command="{Binding ImportOrdersCommand}"/>
+            <Button Style="{StaticResource NavButtonStyle}" Content="Sales Order Data"
+                    Command="{Binding SalesOrderDataCommand}"/>
+            <Button Style="{StaticResource NavButtonStyle}" Content="Stats"
+                    Command="{Binding ShowStatsCommand}"/>
+            <Button Style="{StaticResource NavButtonStyle}" Content="Amend Delivery Dates"
+                    Command="{Binding AmendDatesCommand}"/>
+            <Button Style="{StaticResource NavButtonStyle}" Content="Barcode Label Printing"
+                    Command="{Binding PrintBarcodeCommand}"/>
+            <Button Style="{StaticResource NavButtonStyle}" Content="Box Label Printing"
+                    Command="{Binding PrintBoxLabelsCommand}"/>
+            <Button Style="{StaticResource NavButtonStyle}" Content="Misc"
+                    Command="{Binding ShowMiscCommand}"/>
+            <Button Style="{StaticResource NavButtonStyle}" Content="Tracking Info"
+                    Command="{Binding TrackingInfoCommand}"/>
 
+            <!-- Spacer -->
+            <StackPanel VerticalAlignment="Stretch" Height="Auto"/>
+
+            <TextBlock Text="Search"
+                       Foreground="White"
+                       Margin="10,20,10,5"/>
+            <TextBox x:Name="SearchTextBox"
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="10,0,10,10"
+                     Padding="5"
+                     KeyDown="SearchTextBox_KeyDown"/>
+        </StackPanel>
+
+        <!-- Main content -->
+        <Grid Grid.Column="1" Margin="10,0,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Date navigator + Print options + Import -->
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0,10">
+
+                <!-- Previous day -->
+                <Button Content="←"
+                        Width="30"
+                        Command="{Binding PrevDayCommand}"
+                        Margin="0,0,5,0"/>
+
+                <!-- DatePicker -->
+                <DatePicker SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
+                            DisplayDate="{Binding SelectedDate}"
+                            Width="140" Margin="0,0,5,0"/>
+
+                <!-- Next day -->
+                <Button Content="→"
+                        Width="30"
+                        Command="{Binding NextDayCommand}"
+                        Margin="0,0,10,0"/>
+
+                <!-- Loaded count -->
+                <TextBlock Text="Loaded:" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                <TextBlock Text="{Binding OrdersView.Count}" FontWeight="Bold" VerticalAlignment="Center" Margin="2,0,0,0"/>
+
+                <!-- Print status selector -->
+                <TextBlock Text="Print as:" VerticalAlignment="Center" Margin="20,0,5,0"/>
+                <ComboBox Width="120"
+                          ItemsSource="{Binding PrintStatuses}"
+                          SelectedItem="{Binding SelectedWatermark}"/>
+
+                <!-- Print button -->
+                <Button Content="Print Daily Diary"
+                        Command="{Binding PrintDailyDiaryCommand}"
+                        Margin="20,0,0,0"/>
+            </StackPanel>
+
+            <!-- DataGrid with grouping -->
+            <DataGrid Grid.Row="1"
+                      ItemsSource="{Binding OrdersView}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      GridLinesVisibility="None"
+                      AlternatingRowBackground="#F9F9F9"
+                      RowBackground="White"
+                      FontFamily="Segoe UI">
+
+                <!-- GroupStyle -->
+                <DataGrid.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="GroupItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="GroupItem">
+                                            <StackPanel>
+                                                <!-- Group header -->
+                                                <Border Background="#ffcc66" Padding="5" Margin="0,0,0,5">
+                                                    <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold"/>
+                                                </Border>
+                                                <ItemsPresenter/>
+                                                <!-- Group footer totals -->
+                                                <Border Background="Transparent" Padding="5">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="120"/>
+                                                            <ColumnDefinition Width="70"/>
+                                                            <ColumnDefinition Width="110"/>
+                                                            <ColumnDefinition Width="120"/>
+                                                            <ColumnDefinition Width="200"/>
+                                                            <ColumnDefinition Width="50"/>
+                                                            <ColumnDefinition Width="60"/>
+                                                            <ColumnDefinition Width="50"/>
+                                                            <ColumnDefinition Width="50"/>
+                                                            <ColumnDefinition Width="70"/>
+                                                            <ColumnDefinition Width="150"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0" Grid.ColumnSpan="5" Text="Total" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        <Border Grid.Column="5" Background="{Binding Items, Converter={StaticResource TotalCellBrushConverter}}" Padding="2" Margin="2">
+                                                            <TextBlock Text="{Binding Items, Converter={StaticResource GroupSummaryConverter}, ConverterParameter=Qty}" FontWeight="Bold" TextAlignment="Center"/>
+                                                        </Border>
+                                                        <Border Grid.Column="6" Background="{Binding Items, Converter={StaticResource TotalCellBrushConverter}}" Padding="2" Margin="2">
+                                                            <TextBlock Text="{Binding Items, Converter={StaticResource GroupSummaryConverter}, ConverterParameter=ItemWeight}" FontWeight="Bold" TextAlignment="Center"/>
+                                                        </Border>
+                                                        <Border Grid.Column="7" Background="{Binding Items, Converter={StaticResource TotalCellBrushConverter}}" Padding="2" Margin="2">
+                                                            <TextBlock Text="{Binding Items, Converter={StaticResource GroupSummaryConverter}, ConverterParameter=Pallet}" FontWeight="Bold" TextAlignment="Center"/>
+                                                        </Border>
+                                                        <Border Grid.Column="8" Background="{Binding Items, Converter={StaticResource TotalCellBrushConverter}}" Padding="2" Margin="2">
+                                                            <TextBlock Text="{Binding Items, Converter={StaticResource GroupSummaryConverter}, ConverterParameter=Box}" FontWeight="Bold" TextAlignment="Center"/>
+                                                        </Border>
+                                                    </Grid>
+                                                </Border>
+                                            </StackPanel>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </DataGrid.GroupStyle>
+
+                <!-- Columns -->
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Account"   Binding="{Binding Acctname}" Width="120"/>
+                    <DataGridTextColumn Header="SO"        Binding="{Binding Sonum}" Width="70">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="TextAlignment"       Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Cust Order No" Binding="{Binding Custorderno}" Width="110"/>
+                    <DataGridTextColumn Header="PartNo"      Binding="{Binding Partno}"      Width="120"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Itemdesc}"    Width="200"/>
+                    <DataGridTextColumn Header="Qty"         Binding="{Binding Qty}"         Width="50">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="TextAlignment"       Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Weight"      Binding="{Binding ItemWeight}"  Width="60">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="TextAlignment"       Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Pallets"     Binding="{Binding Pallet}"      Width="50">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="TextAlignment"       Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Boxes"       Binding="{Binding Box}"         Width="50">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="TextAlignment"       Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridCheckBoxColumn Header="Completed" Binding="{Binding Completed,Mode=TwoWay}" Width="70"/>
+                    <DataGridTextColumn Header="Status"     Binding="{Binding TrackStatus}"  Width="150"/>
+                </DataGrid.Columns>
+
+                <!-- Cell styling triggers -->
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridCell">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Completed}" Value="True">
+                                <Setter Property="Background" Value="#D5E8D4"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding TrackStatus, Converter={StaticResource ContainsCompleteConverter}}" Value="True">
+                                <Setter Property="Background" Value="#D5E8D4"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Resources>
+            </DataGrid>
+
+            <!-- Bottom page totals -->
+            <Grid Grid.Row="2" Margin="0,5,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.ColumnSpan="5" Text="Total Unit" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                <Border Grid.Column="5" Background="#FFFF66" Padding="2" Margin="2">
+                    <TextBlock Text="{Binding TotalQty}" FontWeight="Bold" TextAlignment="Center"/>
+                </Border>
+                <Border Grid.Column="6" Background="#FFFF66" Padding="2" Margin="2">
+                    <TextBlock Text="{Binding TotalWeight, StringFormat={}{0:0}}" FontWeight="Bold" TextAlignment="Center"/>
+                </Border>
+                <Border Grid.Column="7" Background="#FFFF66" Padding="2" Margin="2">
+                    <TextBlock Text="{Binding TotalPallet}" FontWeight="Bold" TextAlignment="Center"/>
+                </Border>
+                <Border Grid.Column="8" Background="#FFFF66" Padding="2" Margin="2">
+                    <TextBlock Text="{Binding TotalBox}" FontWeight="Bold" TextAlignment="Center"/>
+                </Border>
+            </Grid>
+        </Grid>
     </Grid>
-  </Grid>
 </Window>

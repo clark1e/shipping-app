@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Models",
+    "\\Services",
+    "\\ViewModels"
   ],
+  "SelectedNode": "\\BoardmanShipping.csproj",
   "PreviewInSolutionExplorer": false
 }
